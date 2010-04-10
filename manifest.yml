@@ -1,0 +1,11 @@
+component: midgardmvc_helper_forms
+version: 0.0.1
+maintainers:
+    bergie:
+        name: Henri Bergius
+        email: henri.bergius@iki.fi
+        role: lead
+    tesaarin:
+        name: Tomi Saarinen
+        email: tomi.saarinen@rohea.com
+        role: lead
