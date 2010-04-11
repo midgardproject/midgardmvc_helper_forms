@@ -7,7 +7,7 @@
  */
 abstract class midgardmvc_helper_forms_widget
 {
-    private $field;
+    protected $field;
         
     public function __construct($field)
     {
@@ -16,6 +16,16 @@ abstract class midgardmvc_helper_forms_widget
 
     public abstract function __toString();
 
-
+    public function get_attributes()
+    {
+        $attributes = array();
+        
+        if ($this->field->required)
+        {
+            $attributes[] = 'required=\'required\'';
+        }
+        
+        return implode(' ', $attributes);
+    }
 }
 ?>

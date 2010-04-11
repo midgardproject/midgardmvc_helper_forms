@@ -52,15 +52,15 @@ class midgardmvc_helper_forms_group
         return $group;
     }
 
-    public function add_field($name, $type)
+    public function add_field($name, $field, $required = false, array $actions = array())
     {        
-        if (strpos($type, '_') === false)
+        if (strpos($field, '_') === false)
         {
             // Built-in type called using the shorthand notation
-            $type = "midgardmvc_helper_forms_type_{$type}";
+            $field = "midgardmvc_helper_forms_field_{$field}";
         }  
 
-        $this->items[$name] = new $type("{$this->name}_{$name}");
+        $this->items[$name] = new $field($name, $required, $actions);
 
         // If there are values stored in session, set them
         $mvc = midgardmvc_core::get_instance();
@@ -83,13 +83,39 @@ class midgardmvc_helper_forms_group
                 // Tell group to process items
                 $item->process_post();
                 continue;
-            }
-            
+            }    
+            //If item is a field with the proper name, do magic        
             if (isset($_POST[$name]))
             {
+                //Set value to the field
                 $item->set_value($_POST[$name]);
-            }        
-            // TODO: validate and/or clean
+                //Read actions
+                $actions = $item->get_actions();
+                //If there are manually defined actions in the array, run them
+                if (   is_array($actions) 
+                    && count($actions) > 0)
+                {
+                    foreach($actions as $action)
+                    {
+                        if (method_exists($item, $action))
+                        {
+                            $item->$action();
+                        }
+                        else
+                        {
+                            $classname = get_class($item);
+                            throw new Exception("No action method '$action' implemented for the class '$classname'");
+                        }
+                    }
+                }
+                //...or just do what people usually want to do with form fields
+                else
+                {
+                    //Default: First clean, then validate
+                    $item->clean();
+                    $item->validate();
+                }           
+            }    
         }
     }
 }

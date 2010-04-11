@@ -5,12 +5,12 @@
  * @copyright The Midgard Project, http://www.midgard-project.org
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
-class midgardmvc_helper_forms_widget_text extends midgardmvc_helper_forms_widget
+class midgardmvc_helper_forms_widget_email extends midgardmvc_helper_forms_widget
 {
 
     public function __toString()
     {    
-        return "<input type='text' name='{$this->field->get_name()}' value='{$this->field->get_value()}' {$this->get_attributes()}/>";
+        return "<input type='email' name='{$this->field->get_name()}' value='{$this->field->get_value()}' {$this->get_attributes()}/>";
     }
 
 }

@@ -5,18 +5,10 @@
  * @copyright The Midgard Project, http://www.midgard-project.org
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
-class midgardmvc_helper_forms_type_text implements midgardmvc_helper_forms_type
+class midgardmvc_helper_forms_field_text extends midgardmvc_helper_forms_field
 {
-    private $name = '';
-    private $value = '';
-    private $required = false;
-    
-    public function __construct($name, $required = false)
-    {
-        $this->name = $name;
-        $this->required = $required;
-    }
 
+    /*
     public function __toString()
     {
         return $this->value;
@@ -31,7 +23,7 @@ class midgardmvc_helper_forms_type_text implements midgardmvc_helper_forms_type
     {
         return $this->value;
     }
-
+    */
     public function validate()
     {
         // if value is NOT required and it is left empy, validate as true
@@ -39,20 +31,21 @@ class midgardmvc_helper_forms_type_text implements midgardmvc_helper_forms_type
             && $this->required == false 
             && mb_strlen($this->value) == 0)
         {
-            return true;
+            return;
+        }        
+        if ($this->value != strip_tags($this->value))
+        {
+            throw new midgardmvc_helper_forms_exception_validation("HTML tags are not allowed in a text field");        
         }
-        
         if (mb_strlen($this->value) == 0)
         {
-            throw new midgardmvc_helper_forms_exception_validation('The field cannot be empty');
+            throw new midgardmvc_helper_forms_exception_validation("The field '{$this->name}' cannot be empty");
         }
-        
-        return true;    
     }
 
     public function clean()
     {
-        return trim(strip_tags($this->value));
+        $this->value = trim(strip_tags($this->value));
     }    
 }
 ?>

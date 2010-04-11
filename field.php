@@ -8,32 +8,37 @@
 abstract class midgardmvc_helper_forms_field
 {
 
-    private $name = '';
-    private $value = '';
-    private $required = false;
-    private $widget = null;
+    protected $name = '';
+    protected $value = null;
+    protected $required = false;
+    protected $widget = null;
+    protected $actions = array();
     
-    public function __construct($name, $required = false)
+    public function __construct($name, $required = false, array $actions = array())
     {
         $this->name = $name;
         $this->required = $required;
+        $this->actions = $actions;
     }
 
     public function __get($key)
     {
+        if ($key == 'value')
+        {
+            return $this->value;
+        }
         $widget = $key;
         if (strpos($widget, '_') === false)
         {
             // Built-in type called using the shorthand notation
             $widget = "midgardmvc_helper_forms_widget_{$widget}";
-        }
-        
+        }        
         if (!is_null($this->widget))
         {
             return $this->widget;
         }
-
         $this->widget = new $widget($this);
+        return $this->widget;
     }
 
     public function __toString()
@@ -54,7 +59,10 @@ abstract class midgardmvc_helper_forms_field
     {
         return $this->name;
     }
-
+    public function get_actions()
+    {
+        return $this->actions;
+    }
     public function validate()
     {
         return;
