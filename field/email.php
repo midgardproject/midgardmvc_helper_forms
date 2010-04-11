@@ -12,7 +12,8 @@ class midgardmvc_helper_forms_field_email extends midgardmvc_helper_forms_field_
         parent::validate();
         if (filter_var($this->value, FILTER_VALIDATE_EMAIL) === false)
         {
-            throw new midgardmvc_helper_forms_exception_validation("The field '{$this->name}' requires a valid email address");
+            $message = $this->mvc->i18n->get('The field requires a valid email address', 'midgardmvc_helper_forms');
+            throw new midgardmvc_helper_forms_exception_validation($message);                        
         }
     }
 
