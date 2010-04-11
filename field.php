@@ -7,18 +7,19 @@
  */
 abstract class midgardmvc_helper_forms_field
 {
-
     protected $name = '';
     protected $value = null;
     protected $required = false;
     protected $widget = null;
     protected $actions = array();
+    protected $mvc = null;
     
     public function __construct($name, $required = false, array $actions = array())
     {
         $this->name = $name;
         $this->required = $required;
         $this->actions = $actions;
+        $this->mvc = midgardmvc_core::get_instance();
     }
 
     public function __get($key)
@@ -70,7 +71,7 @@ abstract class midgardmvc_helper_forms_field
 
     public function clean()
     {    
-        //$this->value = $this->value; //do nothing    
+        //do nothing    
     }
 }
 ?>

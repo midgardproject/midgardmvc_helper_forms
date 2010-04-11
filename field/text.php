@@ -8,22 +8,6 @@
 class midgardmvc_helper_forms_field_text extends midgardmvc_helper_forms_field
 {
 
-    /*
-    public function __toString()
-    {
-        return $this->value;
-    }
-
-    public function set_value($value)
-    {
-        $this->value = $value;
-    }
-
-    public function get_value()
-    {
-        return $this->value;
-    }
-    */
     public function validate()
     {
         // if value is NOT required and it is left empy, validate as true
@@ -34,12 +18,14 @@ class midgardmvc_helper_forms_field_text extends midgardmvc_helper_forms_field
             return;
         }        
         if ($this->value != strip_tags($this->value))
-        {
-            throw new midgardmvc_helper_forms_exception_validation("HTML tags are not allowed in a text field");        
+        {   
+            $message = $this->mvc->i18n->get('HTML tags are not allowed in a text field', 'midgardmvc_helper_forms');
+            throw new midgardmvc_helper_forms_exception_validation($message);        
         }
         if (mb_strlen($this->value) == 0)
         {
-            throw new midgardmvc_helper_forms_exception_validation("The field '{$this->name}' cannot be empty");
+            $message = $this->mvc->i18n->get('The field cannot be empty', 'midgardmvc_helper_forms');
+            throw new midgardmvc_helper_forms_exception_validation($message);        
         }
     }
 
