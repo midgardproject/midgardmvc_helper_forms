@@ -8,6 +8,7 @@
 abstract class midgardmvc_helper_forms_widget
 {
     protected $field;
+    protected $label = '';
         
     public function __construct($field)
     {
@@ -15,6 +16,21 @@ abstract class midgardmvc_helper_forms_widget
     }
 
     public abstract function __toString();
+
+    public function set_label($label)
+    {
+        $this->label = $label;
+    }
+
+    public function add_label($form_field)
+    {
+        if (!$this->label)
+        {
+            return $form_field;
+        }
+        
+        return "<label>{$this->label}{$form_field}</label>";
+    }
 
     public function get_attributes()
     {

@@ -63,5 +63,22 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
         }
         $mvc->sessioning->remove('midgardmvc_helper_forms', "stored_{$this->namespace}");
     }
+    
+    public function __toString()
+    {
+        $form_string  = "<form method='post' action=''>\n";
+        $form_string .= "<input type='hidden' name='midgardmvc_helper_forms_namespace' value='{$this->namespace}' />\n";
+        foreach ($this->items as $item)
+        {
+            if ($item instanceof midgardmvc_helper_forms_group)
+            {
+                $form_string .= $item;
+                continue;
+            }
+            $form_string .= $item->widget;
+        }
+        $form_string .= "</form>\n";
+        return $form_string;
+    }
 }
 ?>

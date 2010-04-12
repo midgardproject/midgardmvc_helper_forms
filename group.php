@@ -9,6 +9,7 @@ class midgardmvc_helper_forms_group
 {
     private $items = array();
     private $name = '';
+    private $label = '';
     
     public function __construct($name)
     {
@@ -45,11 +46,15 @@ class midgardmvc_helper_forms_group
         }      
     }
 
+    public function set_label($label)
+    {
+        $this->label = $label;
+    }
+
     public function add_group($name)
     {
-        $group = new midgardmvc_helper_forms_group("{$this->name}_{$name}");
-        $this->items[$name] = $group;
-        return $group;
+        $this->items[$name] = new midgardmvc_helper_forms_group("{$this->name}_{$name}");
+        return $this->items[$name];
     }
 
     public function add_field($name, $field, $required = false, array $actions = array())
@@ -71,7 +76,9 @@ class midgardmvc_helper_forms_group
             {
                 $this->items[$name]->set_value($stored['fields'][$name]['value']);
             }
-        }        
+        }
+        
+        return $this->items[$name];        
     }
 
     public function process_post()
@@ -117,5 +124,27 @@ class midgardmvc_helper_forms_group
                 }           
             }    
         }
+    }
+    
+    public function __toString()
+    {
+        $form_string  = "<fieldset>\n";
+        
+        if ($this->label)
+        {
+            $form_string .= "<legend>{$this->label}</legend>\n";
+        }
+        
+        foreach ($this->items as $item)
+        {
+            if ($item instanceof midgardmvc_helper_forms_group)
+            {
+                $form_string .= $item;
+                continue;
+            }
+            $form_string .= $item->widget;
+        }
+        $form_string .= "</fieldset>\n";
+        return $form_string;
     }
 }

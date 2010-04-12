@@ -5,12 +5,12 @@
  * @copyright The Midgard Project, http://www.midgard-project.org
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
-class midgardmvc_helper_forms_widget_text extends midgardmvc_helper_forms_widget
+class midgardmvc_helper_forms_widget_textarea extends midgardmvc_helper_forms_widget_text
 {
 
     public function __toString()
     {    
-        return $this->add_label("<input type='text' name='{$this->field->get_name()}' value='{$this->field->get_value()}' {$this->get_attributes()}/>");
+        return $this->add_label("<textarea name='{$this->field->get_name()}'{$this->get_attributes()}>{$this->field->get_value()}</textarea>");
     }
 
 }

@@ -28,17 +28,31 @@ abstract class midgardmvc_helper_forms_field
         {
             return $this->value;
         }
-        $widget = $key;
+        
+        if ($key == 'widget')
+        {
+            return $this->widget;
+        }
+        
+        return $this->set_widget($key);
+    }
+    
+    public function set_widget($widget)
+    {
+        if (!is_null($this->widget))
+        {
+            // This field has a widget already
+            return $this->widget;
+        }
+        
         if (strpos($widget, '_') === false)
         {
             // Built-in type called using the shorthand notation
             $widget = "midgardmvc_helper_forms_widget_{$widget}";
-        }        
-        if (!is_null($this->widget))
-        {
-            return $this->widget;
-        }
+        } 
+        
         $this->widget = new $widget($this);
+        // TODO: Check widget compatibility with type
         return $this->widget;
     }
 
