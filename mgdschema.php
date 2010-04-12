@@ -38,6 +38,7 @@ class midgardmvc_helper_forms_mgdschema
                     $field->set_value($value);
                     $widget = $field->set_widget('text');
                     $widget->set_label($property);
+                    $widget->set_placeholder($reflectionproperty->description($property));
                     // TODO: maxlength to 255
                     break;
                 case MGD_TYPE_LONGTEXT:
@@ -45,15 +46,22 @@ class midgardmvc_helper_forms_mgdschema
                     $field->set_value($value);
                     $widget = $field->set_widget('textarea');
                     $widget->set_label($property);
+                    $widget->set_placeholder($reflectionproperty->description($property));
                     break;
                 case MGD_TYPE_INT:
                     $field = $form->add_field($property, 'integer');
                     $field->set_value($value);
+                    $widget = $field->set_widget('number');
+                    $widget->set_label($property);
+                    $widget->set_placeholder($reflectionproperty->description($property));
                     break;
                 case MGD_TYPE_UINT:
                     $field = $form->add_field($property, 'integer');
                     $field->set_value($value);
                     // TODO: Set minimum value to 0
+                    $widget = $field->set_widget('number');
+                    $widget->set_label($property);
+                    $widget->set_placeholder($reflectionproperty->description($property));
                     break;
                 case MGD_TYPE_BOOLEAN:
                     $field = $form->add_field($property, 'boolean');

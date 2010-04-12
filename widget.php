@@ -9,8 +9,9 @@ abstract class midgardmvc_helper_forms_widget
 {
     protected $field;
     protected $label = '';
+    protected $placeholder = '';
         
-    public function __construct($field)
+    public function __construct(midgardmvc_helper_forms_field $field)
     {
         $this->field = $field;
     }
@@ -20,6 +21,11 @@ abstract class midgardmvc_helper_forms_widget
     public function set_label($label)
     {
         $this->label = $label;
+    }
+    
+    public function set_placeholder($placeholder)
+    {
+        $this->placeholder = $placeholder;
     }
 
     public function add_label($form_field)
@@ -39,6 +45,11 @@ abstract class midgardmvc_helper_forms_widget
         if ($this->field->required)
         {
             $attributes[] = 'required=\'required\'';
+        }
+        
+        if ($this->placeholder)
+        {
+            $attributes[] = "placeholder='{$this->placeholder}'";
         }
         
         return implode(' ', $attributes);

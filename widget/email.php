@@ -10,7 +10,7 @@ class midgardmvc_helper_forms_widget_email extends midgardmvc_helper_forms_widge
 
     public function __toString()
     {    
-        return "<input type='email' name='{$this->field->get_name()}' value='{$this->field->get_value()}' {$this->get_attributes()}/>";
+        return $this->add_label("<input type='email' name='{$this->field->get_name()}' value='{$this->field->get_value()}' {$this->get_attributes()}/>");
     }
 
 }
