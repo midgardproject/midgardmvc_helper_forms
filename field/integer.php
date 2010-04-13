@@ -20,10 +20,10 @@ class midgardmvc_helper_forms_field_integer extends midgardmvc_helper_forms_fiel
             return;
         }
         
-        if (! filter_var($this->value, FILTER_VALIDATE_INT))
+        if ($this->value != filter_var($this->value, FILTER_VALIDATE_INT))
         {
             $message = $this->mvc->i18n->get('Value is not an integer', 'midgardmvc_helper_forms');
-            throw new midgardmvc_helper_forms_exception_validation($message);         
+            throw new midgardmvc_helper_forms_exception_validation($message." ({$this->name})");         
         }
     }
     
