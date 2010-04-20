@@ -7,6 +7,19 @@
  */
 class midgardmvc_helper_forms_mgdschema
 {
+    public static function create(midgard_object $object)
+    {
+        $form_namespace = get_class($object);
+        if ($object->guid)
+        {
+            $form_namespace = $object->guid;
+        }
+
+        $form = midgardmvc_helper_forms::create($form_namespace);
+        midgardmvc_helper_forms_mgdschema::object_to_form($object, $form);
+        return $form;
+    }
+
     public static function object_to_form($object, midgardmvc_helper_forms_group $form)
     {
         // Go through object properties
@@ -74,4 +87,27 @@ class midgardmvc_helper_forms_mgdschema
             }
         }
     }
+
+    public static function form_to_object(midgardmvc_helper_forms_group $form, $object)
+    {
+        // Go through form items and fill the object
+        $items = $form->items;
+        foreach ($items as $key => $item)
+        {
+            if (!isset($object->$key))
+            {
+                // The object has no such property
+                continue;
+            }
+            
+            if (   $item instanceof midgardmvc_helper_forms_group
+                && $key == 'metadata')
+            {
+                midgardmvc_helper_forms_mgdschema::form_to_object($item, $object->metadata);
+                continue;
+            }
+            
+            $object->$key = $item->get_value();
+        }
+    }   
 }

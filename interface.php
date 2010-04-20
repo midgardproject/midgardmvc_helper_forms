@@ -21,19 +21,6 @@ class midgardmvc_helper_forms extends midgardmvc_core_component_baseclass
 
         return $forms_by_namespace[$form_namespace];
     }
-    
-    public static function create_for_mgdschema(midgard_object $object)
-    {
-        $form_namespace = get_class($object);
-        if ($object->guid)
-        {
-            $form_namespace = $object->guid;
-        }
-
-        $form = midgardmvc_helper_forms::create($form_namespace);
-        midgardmvc_helper_forms_mgdschema::object_to_form($object, $form);
-        return $form;
-    }
 
     public static function identify_post()
     {
