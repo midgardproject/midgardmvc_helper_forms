@@ -94,7 +94,7 @@ class midgardmvc_helper_forms_mgdschema
         $items = $form->items;
         foreach ($items as $key => $item)
         {
-            if (!isset($object->$key))
+            if (!property_exists($object, $key))
             {
                 // The object has no such property
                 continue;
