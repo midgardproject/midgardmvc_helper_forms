@@ -55,9 +55,17 @@ class midgardmvc_helper_forms_mgdschema
                     // TODO: maxlength to 255
                     break;
                 case MGD_TYPE_LONGTEXT:
-                    $field = $form->add_field($property, 'text');
+                    if ($reflectionproperty->get_user_value($property, 'contenttype') == 'html')
+                    {
+                        $field = $form->add_field($property, 'html');
+                        $widget = $field->set_widget('html');
+                    }
+                    else
+                    {
+                        $field = $form->add_field($property, 'text');
+                        $widget = $field->set_widget('textarea');
+                    }
                     $field->set_value($value);
-                    $widget = $field->set_widget('textarea');
                     $widget->set_label($property);
                     $widget->set_placeholder($reflectionproperty->description($property));
                     break;

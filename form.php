@@ -77,7 +77,7 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
             }
             $form_string .= $item->widget;
         }
-        $form_string .= "<input type='submit' value='Save' />\n";
+        $form_string .= "<input type='submit' class='midgardmvc_helper_forms_form_save' value='Save' />\n";
         $form_string .= "</form>\n";
         return $form_string;
     }
