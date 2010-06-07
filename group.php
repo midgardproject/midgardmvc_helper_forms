@@ -91,11 +91,20 @@ class midgardmvc_helper_forms_group
                 $item->process_post();
                 continue;
             }    
-            //If item is a field with the proper name, do magic        
+            $value = null;
             if (isset($_POST[$name]))
             {
+                $value = $_POST[$name];
+            }
+            elseif(isset($_FILES[$name]))
+            {
+                $value = $_FILES[$name];
+            }            
+            //If item is a field with the proper name, do magic        
+            if (isset($value) && $value != null)
+            {
                 //Set value to the field
-                $item->set_value($_POST[$name]);
+                $item->set_value($value);
                 //Read actions
                 $actions = $item->get_actions();
                 //If there are manually defined actions in the array, run them
