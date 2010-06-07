@@ -58,7 +58,7 @@ abstract class midgardmvc_helper_forms_field
 
     public function __toString()
     {
-        return $this->value;
+        return "".$this->value;
     }
 
     public function set_value($value)
