@@ -24,16 +24,21 @@ class midgardmvc_helper_forms extends midgardmvc_core_component_baseclass
 
     public static function identify_post()
     {
+        /* 
+        //Removed to allow forms with method GET to pass
         if (midgardmvc_core::get_instance()->context->request_method != 'post')
         {
             return null;
         }
-
-        if (   isset($_POST) 
-            && isset($_POST['midgardmvc_helper_forms_namespace']))
+        */
+        if (isset($_POST) && isset($_POST['midgardmvc_helper_forms_namespace']))
         {
             return $_POST['midgardmvc_helper_forms_namespace'];
         }        
+        elseif(isset($_GET) && isset($_GET['midgardmvc_helper_forms_namespace']))
+        {
+            return $_GET['midgardmvc_helper_forms_namespace'];        
+        }
     
         return null;
     }
