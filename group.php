@@ -96,13 +96,18 @@ class midgardmvc_helper_forms_group
             {
                 $value = $_POST[$name];
             }
+            elseif(isset($_GET[$name]))
+            {
+                $value = $_GET[$name];
+            }
             elseif(isset($_FILES[$name]))
             {
                 $value = $_FILES[$name];
             }            
             //If item is a field with the proper name, do magic        
-            if (isset($value) && $value != null)
-            {
+            //if (isset($value) && $value != null)
+            //{
+            
                 //Set value to the field
                 $item->set_value($value);
                 //Read actions
@@ -131,7 +136,7 @@ class midgardmvc_helper_forms_group
                     $item->clean();
                     $item->validate();
                 }           
-            }    
+            //}    
         }
     }
     
