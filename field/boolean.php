@@ -1,6 +1,18 @@
 <?php
 class midgardmvc_helper_forms_field_boolean extends midgardmvc_helper_forms_field
 {
+    public function set_value($value)
+    {
+        if ($value == null)
+        {
+            //This special case is here because checkboxes (stupidly) post nothing if they are not checked
+            $this->value = false;
+        }
+        else
+        {
+            $this->value = $value;
+        }    
+    }
 
     public function validate()
     {
@@ -19,6 +31,7 @@ class midgardmvc_helper_forms_field_boolean extends midgardmvc_helper_forms_fiel
         {
             $this->value = false;
         }
+
         //Checkboxes send value 
         if ($this->value !== 1 && $this->value !== 0 && $this->value !== true && $this->value !== false && $this->value !== null)
         {
