@@ -49,7 +49,7 @@ abstract class midgardmvc_helper_forms_widget
         
         if ($this->placeholder)
         {
-            $attributes[] = "placeholder='{$this->placeholder}'";
+            $attributes[] = "placeholder='" . str_replace("'", '’', $this->placeholder) . "'";
         }
         
         return implode(' ', $attributes);
