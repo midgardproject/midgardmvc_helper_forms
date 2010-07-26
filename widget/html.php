@@ -11,8 +11,6 @@ class midgardmvc_helper_forms_widget_html extends midgardmvc_helper_forms_widget
     public function __toString()
     {    
         $html  = "<textarea class='{$this->field->get_name()}' name='{$this->field->get_name()}'{$this->get_attributes()}>{$this->field->get_value()}</textarea>";
-        $html .= "<script type='text/javascript' src='/midcom-static/midgardmvc_helper_forms/wymeditor/jquery.wymeditor.min.js'></script>";
-        $html .= "<script type='text/javascript'>jQuery(function() {jQuery('.{$this->field->get_name()}').wymeditor({updateSelector: '.midgardmvc_helper_forms_form_save', skin: 'compact', logoHtml: ''});});</script>";
         return $this->add_label($html);
     }
 
