@@ -1,5 +1,5 @@
 <?php
-class midgardmvc_helper_forms extends midgardmvc_core_component_baseclass
+class midgardmvc_helper_forms
 {
     public static function create($form_namespace = null)
     {
