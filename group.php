@@ -46,6 +46,19 @@ class midgardmvc_helper_forms_group
         }      
     }
 
+    public function __isset($key)
+    {
+        switch ($key)
+        {
+            case 'name':
+                return true;
+            case 'items':
+                return true;
+            default:
+                return isset($this->items[$key]);
+        }
+    }
+
     public function set_label($label)
     {
         $this->label = $label;
