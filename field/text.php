@@ -19,12 +19,12 @@ class midgardmvc_helper_forms_field_text extends midgardmvc_helper_forms_field
         }        
         if ($this->value != strip_tags($this->value))
         {   
-            $message = $this->mvc->i18n->get('HTML tags are not allowed in a text field', 'midgardmvc_helper_forms');
+            $message = $this->mvc->i18n->get("HTML tags are not allowed in a text field {$this->name}", 'midgardmvc_helper_forms');
             throw new midgardmvc_helper_forms_exception_validation($message);        
         }
         if (mb_strlen($this->value) == 0)
         {
-            $message = $this->mvc->i18n->get('The field cannot be empty', 'midgardmvc_helper_forms');
+            $message = $this->mvc->i18n->get("The {$this->name} field cannot be empty", 'midgardmvc_helper_forms');
             throw new midgardmvc_helper_forms_exception_validation($message);        
         }
     }
