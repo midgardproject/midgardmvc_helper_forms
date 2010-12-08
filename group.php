@@ -46,6 +46,14 @@ class midgardmvc_helper_forms_group
         }      
     }
 
+    public function __unset($key)
+    {    
+        if (isset($this->items[$key]))
+        {
+            unset($this->items[$key]);
+        }
+    }
+
     public function __isset($key)
     {
         switch ($key)
