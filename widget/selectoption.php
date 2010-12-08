@@ -28,7 +28,8 @@ class midgardmvc_helper_forms_widget_selectoption extends midgardmvc_helper_form
 
     public function add_option($description, $value)
     {
-        $this->options[] = array(
+        $this->options[] = array
+        (
             'description' => $description,
             'value' => $value,
         );
