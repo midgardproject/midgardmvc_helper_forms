@@ -32,8 +32,13 @@ class midgardmvc_helper_forms_mgdschema
         }
     }
 
-    public static function property_to_form($class, $property, $value, midgardmvc_helper_forms_group $form)
+    public static function property_to_form($class, $property, $value, midgardmvc_helper_forms_group $form, $fieldname = null)
     {
+        if (is_null($fieldname))
+        {
+            $fieldname = $property;
+        }
+
         if (!isset(self::$reflectionproperties[$class]))
         {
             self::$reflectionproperties[$class] = new midgard_reflection_property($class);
@@ -50,7 +55,7 @@ class midgardmvc_helper_forms_mgdschema
         if ($property == 'metadata')
         {
             // Metadata is to be handled as a group
-            $metadata = $form->add_group('metadata');
+            $metadata = $form->add_group($fieldname);
             $metadata->set_label('metadata');
             self::object_to_form($value, $metadata);
         }
@@ -65,7 +70,7 @@ class midgardmvc_helper_forms_mgdschema
         switch ($type)
         {
             case MGD_TYPE_STRING:
-                $field = $form->add_field($property, 'text', $required);
+                $field = $form->add_field($fieldname, 'text', $required);
                 $field->set_value($value);
                 $widget = $field->set_widget('text');
                 $widget->set_label($property);
@@ -75,12 +80,12 @@ class midgardmvc_helper_forms_mgdschema
             case MGD_TYPE_LONGTEXT:
                 if (self::$reflectionproperties[$class]->get_user_value($property, 'contenttype') == 'html')
                 {
-                    $field = $form->add_field($property, 'html', $required);
+                    $field = $form->add_field($fieldname, 'html', $required);
                     $widget = $field->set_widget('html');
                 }
                 else
                 {
-                    $field = $form->add_field($property, 'text', $required);
+                    $field = $form->add_field($fieldname, 'text', $required);
                     $widget = $field->set_widget('textarea');
                 }
                 $field->set_value($value);
@@ -88,14 +93,14 @@ class midgardmvc_helper_forms_mgdschema
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_INT:
-                $field = $form->add_field($property, 'integer', $required);
+                $field = $form->add_field($fieldname, 'integer', $required);
                 $field->set_value($value);
                 $widget = $field->set_widget('number');
                 $widget->set_label($property);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_UINT:
-                $field = $form->add_field($property, 'integer', $required);
+                $field = $form->add_field($fieldname, 'integer', $required);
                 $field->set_value($value);
                 // TODO: Set minimum value to 0
                 $widget = $field->set_widget('number');
@@ -103,7 +108,7 @@ class midgardmvc_helper_forms_mgdschema
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_BOOLEAN:
-                $field = $form->add_field($property, 'boolean', $required);
+                $field = $form->add_field($fieldname, 'boolean', $required);
                 $field->set_value($value);
                 break;
             case MGD_TYPE_FLOAT:
