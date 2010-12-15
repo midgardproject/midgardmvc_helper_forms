@@ -9,7 +9,7 @@ class midgardmvc_helper_forms_mgdschema
 {
     private static $reflectionproperties = array();
 
-    public static function create(midgard_object $object)
+    public static function create(midgard_object $object, $include_metadata = true)
     {
         $form_namespace = get_class($object);
         if ($object->guid)
@@ -18,16 +18,21 @@ class midgardmvc_helper_forms_mgdschema
         }
 
         $form = midgardmvc_helper_forms::create($form_namespace);
-        self::object_to_form($object, $form, $enable_metadata);
+        self::object_to_form($object, $form, $include_metadata);
         return $form;
     }
 
-    public static function object_to_form($object, midgardmvc_helper_forms_group $form)
+    public static function object_to_form($object, midgardmvc_helper_forms_group $form, $include_metadata)
     {
         // Go through object properties
         $props = get_object_vars($object);
         foreach ($props as $property => $value)
         {
+            if (   $property == 'metadata'
+                && !$include_metadata)
+            {
+                continue;
+            }
             self::property_to_form(get_class($object), $property, $value, $form);
         }
     }
@@ -49,7 +54,7 @@ class midgardmvc_helper_forms_mgdschema
             || $property == 'id')
         {
             // TODO: Make the list of properties to not render configurable
-            continue;
+            return;
         }
         
         if ($property == 'metadata')
@@ -58,6 +63,7 @@ class midgardmvc_helper_forms_mgdschema
             $metadata = $form->add_group($fieldname);
             $metadata->set_label('metadata');
             self::object_to_form($value, $metadata);
+            return;
         }
 
         $required = false;

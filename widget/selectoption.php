@@ -49,7 +49,7 @@ class midgardmvc_helper_forms_widget_selectoption extends midgardmvc_helper_form
             $output .= " {$o['description']}</option>";
         }
         $output .= '</select>';
-        return $output;
+        return $this->add_label($output);
     }
 
 }
