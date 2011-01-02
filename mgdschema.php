@@ -22,7 +22,7 @@ class midgardmvc_helper_forms_mgdschema
         return $form;
     }
 
-    public static function object_to_form($object, midgardmvc_helper_forms_group $form, $include_metadata)
+    public static function object_to_form($object, midgardmvc_helper_forms_group $form, $include_metadata = true)
     {
         // Go through object properties
         $props = get_object_vars($object);
@@ -56,7 +56,7 @@ class midgardmvc_helper_forms_mgdschema
             // TODO: Make the list of properties to not render configurable
             return;
         }
-        
+
         if ($property == 'metadata')
         {
             // Metadata is to be handled as a group
@@ -135,15 +135,15 @@ class midgardmvc_helper_forms_mgdschema
                 // The object has no such property
                 continue;
             }
-            
+
             if (   $item instanceof midgardmvc_helper_forms_group
                 && $key == 'metadata')
             {
                 self::form_to_object($item, $object->metadata);
                 continue;
             }
-            
+
             $object->$key = $item->get_value();
         }
-    }   
+    }
 }
