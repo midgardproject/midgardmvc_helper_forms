@@ -5,7 +5,7 @@
  * @copyright The Midgard Project, http://www.midgard-project.org
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  */
-class midgardmvc_helper_forms_field_float extends midgardmvc_helper_forms_field
+class midgardmvc_helper_forms_field_float extends midgardmvc_helper_forms_field_integer
 {
     public function __toString()
     {
