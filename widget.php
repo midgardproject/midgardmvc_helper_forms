@@ -46,7 +46,12 @@ abstract class midgardmvc_helper_forms_widget
         {
             $attributes[] = 'required=\'required\'';
         }
-        
+
+        if ($this->field->readonly)
+        {
+            $attributes[] = 'readonly=\'readonly\'';
+        }
+
         if ($this->placeholder)
         {
             $attributes[] = "placeholder='" . str_replace("'", '’', $this->placeholder) . "'";

@@ -10,7 +10,7 @@ class midgardmvc_helper_forms_widget_textarea extends midgardmvc_helper_forms_wi
 
     public function __toString()
     {    
-        return $this->add_label("<textarea name='{$this->field->get_name()}'{$this->get_attributes()}>{$this->field->get_value()}</textarea>");
+        return $this->add_label("<textarea name='{$this->field->get_name()}' {$this->get_attributes()}>{$this->field->get_value()}</textarea>");
     }
 
 }

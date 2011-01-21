@@ -35,6 +35,15 @@ class midgardmvc_helper_forms_widget_selectoption extends midgardmvc_helper_form
         );
     }
 
+    public function get_attributes()
+    {
+        if ($this->field->readonly)
+        {
+            return 'disabled=\'disabled\'';
+        }
+        return '';
+    }
+
     public function __toString()
     {   
         $output = "<select name='{$this->field->get_name()}' {$this->get_attributes()}>";

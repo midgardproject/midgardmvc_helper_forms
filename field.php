@@ -13,6 +13,7 @@ abstract class midgardmvc_helper_forms_field
     protected $widget = null;
     protected $actions = array();
     protected $mvc = null;
+    protected $readonly = false;
     
     public function __construct($name, $required = false, array $actions = array())
     {
@@ -33,7 +34,17 @@ abstract class midgardmvc_helper_forms_field
         {
             return $this->widget;
         }
-        
+
+        if ($key == 'required')
+        {
+            return $this->required;
+        }
+
+        if ($key == 'readonly')
+        {
+            return $this->readonly;
+        }
+
         return $this->set_widget($key);
     }
     
@@ -59,6 +70,11 @@ abstract class midgardmvc_helper_forms_field
     public function __toString()
     {
         return "".$this->value;
+    }
+
+    public function set_readonly($readonly = true)
+    {
+        $this->readonly = (bool) $readonly;
     }
 
     public function set_value($value)

@@ -7,9 +7,10 @@
  */
 class midgardmvc_helper_forms_group
 {
-    private $items = array();
-    private $name = '';
-    private $label = '';
+    protected $items = array();
+    protected $name = '';
+    protected $label = '';
+    protected $readonly = false;
     
     public function __construct($name)
     {
@@ -102,6 +103,15 @@ class midgardmvc_helper_forms_group
         return $this->items[$name];        
     }
 
+    public function set_readonly($readonly = true)
+    {
+        $this->readonly = $readonly;
+        foreach ($this->items as $name => $item)
+        {
+            $item->set_readonly($readonly);
+        }
+    }
+
     public function process_post()
     {
         foreach ($this->items as $name => $item)
@@ -111,7 +121,13 @@ class midgardmvc_helper_forms_group
                 // Tell group to process items
                 $item->process_post();
                 continue;
-            }    
+            }
+
+            if ($item->readonly)
+            {
+                continue;
+            }
+
             $value = null;
             if (isset($_POST[$name]))
             {
