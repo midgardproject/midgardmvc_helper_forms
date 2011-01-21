@@ -73,6 +73,7 @@ class midgardmvc_helper_forms_mgdschema
         }
 
         $type = self::$reflectionproperties[$class]->get_midgard_type($property);
+        $field = null;
         switch ($type)
         {
             case MGD_TYPE_STRING:
@@ -121,6 +122,32 @@ class midgardmvc_helper_forms_mgdschema
             case MGD_TYPE_TIMESTAMP:
             case MGD_TYPE_GUID:
                 break;
+        }
+
+        if (   $class == 'midgard_metadata'
+            && !is_null($field))
+        {
+            // Handle read-only metadata properties
+            switch ($property)
+            {
+                case 'approved':
+                case 'approver':
+                case 'created':
+                case 'creator':
+                case 'deleted':
+                case 'exported':
+                case 'imported':
+                case 'isapproved':
+                case 'islocked':
+                case 'locked':
+                case 'locker':
+                case 'revised':
+                case 'revision':
+                case 'revisor':
+                case 'size':
+                    $field->set_readonly(true);
+                    break;
+            }
         }
     }
 
