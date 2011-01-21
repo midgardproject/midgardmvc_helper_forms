@@ -8,7 +8,7 @@
 class midgardmvc_helper_forms_widget_datetime extends midgardmvc_helper_forms_widget
 {
     public function __toString()
-    {    
+    {
         return $this->add_label("<input type='datetime' name='{$this->field->get_name()}' value='{$this->field->get_value()->format(DateTime::RFC3339)}' {$this->get_attributes()}/>");
     }
 }

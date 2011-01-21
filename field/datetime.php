@@ -16,7 +16,28 @@ class midgardmvc_helper_forms_field_datetime extends midgardmvc_helper_forms_fie
 
     public function set_value($value)
     {
-        $this->value = DateTime::createFromFormat(DateTime::RFC3339, $value);
+        if (is_string($value))
+        {
+            $value = DateTime::createFromFormat(DateTime::RFC3339, $value);
+        }
+
+        if (   $value instanceof DateTime
+            && !$value instanceof midgard_datetime)
+        {
+            $value = new midgard_datetime();
+            $value->setTimestamp($value->getTimestamp());
+        }
+
+        $this->value = $value;
+    }
+
+    public function validate()
+    {
+        if (!$this->value instanceof DateTime)
+        {
+            $message = $this->mvc->i18n->get('Value is not a datetime', 'midgardmvc_helper_forms');
+            throw new midgardmvc_helper_forms_exception_validation($message." ({$this->name})");
+        }
     }
 }
 ?>
