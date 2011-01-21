@@ -119,7 +119,18 @@ class midgardmvc_helper_forms_mgdschema
                 $field->set_value($value);
                 break;
             case MGD_TYPE_FLOAT:
+                $field = $form->add_field($fieldname, 'float', $required);
+                $field->set_value($value);
+                $widget = $field->set_widget('number');
+                $widget->set_label($property);
+                $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
+                break;
             case MGD_TYPE_TIMESTAMP:
+                $field = $form->add_field($fieldname, 'datetime', $required);
+                $field->set_value($value);
+                $widget = $field->set_widget('datetime');
+                $widget->set_label($property);
+                $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
             case MGD_TYPE_GUID:
                 break;
         }

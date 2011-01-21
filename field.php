@@ -86,6 +86,7 @@ abstract class midgardmvc_helper_forms_field
     {
         return $this->value;
     }
+
     public function get_name()
     {
         return $this->name;
