@@ -49,13 +49,12 @@ class midgardmvc_helper_forms_widget_selectoption extends midgardmvc_helper_form
         $output = "<select name='{$this->field->get_name()}' {$this->get_attributes()}>";
         foreach($this->options as $o)
         {
-            $output .= "<option value='".$o['value']."' ";
+            $output .= "<option value='{$o['value']}'";
             if ($o['value'] == $this->field->get_value())
             {
                 $output .= " selected='selected'";
             }
-            $output .= " />";
-            $output .= " {$o['description']}</option>";
+            $output .= ">{$o['description']}</option>";
         }
         $output .= '</select>';
         return $this->add_label($output);
