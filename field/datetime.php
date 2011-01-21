@@ -18,7 +18,14 @@ class midgardmvc_helper_forms_field_datetime extends midgardmvc_helper_forms_fie
     {
         if (is_string($value))
         {
-            $value = DateTime::createFromFormat(DateTime::RFC3339, $value);
+            if ($this->widget instanceof midgardmvc_helper_forms_widget_date)
+            {
+                $value = DateTime::createFromFormat('Y-m-d', $value);
+            }
+            else
+            {
+                $value = DateTime::createFromFormat(DateTime::RFC3339, $value);
+            }
         }
 
         if (   $value instanceof DateTime
