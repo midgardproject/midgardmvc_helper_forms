@@ -10,6 +10,7 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
     private $mvc = null;
     private $post_processed = false;
     private $action = '';
+    private $method = 'post';
 
     public function __construct($form_namespace)
     {
@@ -36,6 +37,11 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
     public function set_action($action)
     {
         $this->action = $action;
+    }
+
+    public function set_method($method)
+    {
+        $this->method = $method;
     }
 
     public function process_post()
@@ -72,7 +78,7 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
     
     public function __toString()
     {
-        $form_string  = "<form method='post' action='{$this->action}'>\n";
+        $form_string  = "<form method='{$this->method}' action='{$this->action}'>\n";
         $form_string .= "<input type='hidden' name='midgardmvc_helper_forms_namespace' value='{$this->namespace}' />\n";
         foreach ($this->items as $item)
         {
