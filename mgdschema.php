@@ -77,8 +77,9 @@ class midgardmvc_helper_forms_mgdschema
         switch ($type)
         {
             case MGD_TYPE_STRING:
-                $field = $form->add_field($fieldname, 'text', $required);
+                $field = $form->add_field($fieldname, 'html', $required);
                 $field->set_value($value);
+                $field->set_inline(true);
                 $widget = $field->set_widget('text');
                 $widget->set_label($property);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));

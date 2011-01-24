@@ -7,6 +7,8 @@
  */
 class midgardmvc_helper_forms_field_html extends midgardmvc_helper_forms_field
 {
+    protected $inline = false;
+    public $purify = true;
 
     public function validate()
     {
@@ -24,9 +26,73 @@ class midgardmvc_helper_forms_field_html extends midgardmvc_helper_forms_field
         }
     }
 
+    public function set_inline($inline)
+    {
+        $this->inline = $inline;
+    }
+
+    private function get_cache_dir()
+    {
+        if (extension_loaded('midgard2'))
+        {
+            $config = midgard_connection::get_instance()->config;
+            if (   $config
+                && $config->cachedir)
+            {
+                return "{$config->cachedir}/htmlpurifier";
+            }
+        }
+        return sys_get_temp_dir() . '/htmlpurifier';
+    }
+
+    public function purify($content)
+    {
+        require_once('HTMLPurifier.auto.php');
+
+        $cache_dir = $this->get_cache_dir();
+        if (!file_exists($cache_dir))
+        {
+            mkdir($cache_dir);
+        }
+
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('Cache.SerializerPath', $cache_dir);
+        $config->set('Core.Encoding', 'UTF-8');
+
+        $config->set('HTML.Parent', 'div');
+        if ($this->inline)
+        {
+            $config->set('HTML.Parent', 'span');
+        }
+
+        $config->set('HTML.ForbiddenAttributes', array
+        (
+            'span@style',
+            'span@class',
+            'div@style',
+            'div@class',
+            'p@style',
+            'p@class',
+            'a@style',
+            'a@class',
+        ));
+        $config->set('AutoFormat.RemoveEmpty', true);
+        $config->set('AutoFormat.RemoveSpansWithoutAttributes', true);
+        // FIXME: Change to HTML5 when HTML Purifier supports it
+        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional'); // replace with your doctype
+        $purifier = new HTMLPurifier($config);
+
+        return $purifier->purify($content);
+    }
+
     public function clean()
     {
-        $this->value = trim($this->value);
-    }    
+        if (!$this->purify)
+        {
+            $this->value = trim($this->value);
+            return;
+        }
+        $this->value = $this->purify($this->value);
+    }
 }
 ?>

@@ -1,4 +1,6 @@
-version: 0.5
+requires_pear:
+    HTMLPurifier:
+        channel: htmlpurifier.org
 maintainers:
     bergie:
         name: Henri Bergius
