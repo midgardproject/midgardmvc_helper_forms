@@ -19,22 +19,16 @@ class midgardmvc_helper_forms_field_float extends midgardmvc_helper_forms_field_
         {
             return;
         }
-        
+
         if ($this->value != filter_var($this->value, FILTER_VALIDATE_FLOAT))
         {
             $message = $this->mvc->i18n->get('Value is not a float', 'midgardmvc_helper_forms');
             throw new midgardmvc_helper_forms_exception_validation($message." ({$this->name})");
         }
     }
-    
+
     public function clean()
     {
-        $this->value = (float) $this->value;
+        $this->value = (float) str_replace(',', '.', $this->value);
     }
-
-
-
-        
 }
-
-?>
