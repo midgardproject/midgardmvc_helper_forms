@@ -20,7 +20,7 @@ class midgardmvc_helper_forms_field_float extends midgardmvc_helper_forms_field_
             return;
         }
 
-        if ($this->value != filter_var($this->value, FILTER_VALIDATE_FLOAT))
+        if (!is_float($this->value))
         {
             $message = $this->mvc->i18n->get('Value is not a float', 'midgardmvc_helper_forms');
             throw new midgardmvc_helper_forms_exception_validation($message." ({$this->name})");
