@@ -13,8 +13,9 @@ class midgardmvc_helper_forms_widget_number extends midgardmvc_helper_forms_widg
     }
 
     public function __toString()
-    {    
-        return $this->add_label("<input type='number' name='{$this->field->get_name()}' value='{$this->field->get_value()}' {$this->get_attributes()}/>");
+    {
+        $value = str_replace(',', '.', $this->field->get_value());
+        return $this->add_label("<input type='number' name='{$this->field->get_name()}' value='{$value}' {$this->get_attributes()}/>");
     }
 
 }
