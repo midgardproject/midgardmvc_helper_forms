@@ -30,13 +30,14 @@ class midgardmvc_helper_forms_field_datetime extends midgardmvc_helper_forms_fie
 
         if ($this->value instanceof DateTime)
         {
-            $value = new midgard_datetime();
             if ($this->value instanceof midgard_datetime)
             {
                 $this->value->setTimestamp($value->getTimestamp());
                 return;
             }
-            $value->setTimestamp($value->getTimestamp());
+            $new_value = new midgard_datetime();
+            $new_value->setTimestamp($value->getTimestamp());
+            $value = $new_value;
         }
 
         $this->value = $value;
