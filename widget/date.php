@@ -9,7 +9,13 @@ class midgardmvc_helper_forms_widget_date extends midgardmvc_helper_forms_widget
 {
     public function __toString()
     {
-        return $this->add_label("<input type='date' name='{$this->field->get_name()}' value='{$this->field->get_value()->format("Y-m-d")}' {$this->get_attributes()}/>");
+        $value = $this->field->get_value();
+        $value_string = '';
+        if ($value instanceof DateTime)
+        {
+            $value_string = $value->format('Y-m-d');
+        }
+        return $this->add_label("<input type='date' name='{$this->field->get_name()}' value='{$value_string}' {$this->get_attributes()}/>");
     }
 }
 ?>
