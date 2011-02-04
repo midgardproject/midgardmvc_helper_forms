@@ -47,6 +47,12 @@ class midgardmvc_helper_forms_field_datetime extends midgardmvc_helper_forms_fie
     {
         if (!$this->value instanceof DateTime)
         {
+            if (   isset($this->required) 
+                && $this->required == false)
+            {
+                return;
+            }
+
             $message = $this->mvc->i18n->get('Value is not a datetime', 'midgardmvc_helper_forms');
             throw new midgardmvc_helper_forms_exception_validation($message." ({$this->name})");
         }
