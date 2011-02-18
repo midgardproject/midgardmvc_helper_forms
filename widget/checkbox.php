@@ -7,29 +7,27 @@
  */
 class midgardmvc_helper_forms_widget_checkbox extends midgardmvc_helper_forms_widget
 {
-
-    private $description = '';
-
+    /**
+     * Deprecated way for setting checkbox label, use set_label instead
+     */
     public function set_description($description)
     {
-        $this->description = $description;
-        /*
-        $this->options[] = array(
-            'description' => $description,
-            'value' => $value,
-        );
-        */
+        $this->set_label($description);
     }
 
     public function __toString()
     {   
-        $output = "<span><input type='checkbox' name='{$this->field->get_name()}' value='1' {$this->get_attributes()}";
+        $output = "<span><input type='checkbox' name='{$this->field->get_name()}' id='{$this->field->get_name()}' value='1' {$this->get_attributes()}";
         if ($this->field->get_value() == true)
         {
             $output .= " checked='checked'";
         }
         $output .= " />";
-        $output .= " <span class='midgardmvc_helper_forms_widget_checkbox_description'>{$this->description}</span></span>";
+
+        if ($this->label)
+        {
+            $output .= "<label for='{$this->field->get_name()}'>{$this->label}</label>";
+        }
 
         return $output;
     }
