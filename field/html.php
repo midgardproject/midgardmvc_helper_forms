@@ -75,6 +75,22 @@ class midgardmvc_helper_forms_field_html extends midgardmvc_helper_forms_field
             'p@class',
             'a@style',
             'a@class',
+            'pre@style',
+            'pre@class',
+            'td@style',
+            'td@class',
+            'dl@style',
+            'dl@class',
+            'dt@style',
+            'dt@class',
+            'dd@style',
+            'dd@class',
+            'ul@style',
+            'ul@class',
+            'li@style',
+            'li@class',
+            'b@style',
+            'b@class',
         ));
         $config->set('AutoFormat.RemoveEmpty', true);
         $config->set('AutoFormat.RemoveSpansWithoutAttributes', true);
