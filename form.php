@@ -92,7 +92,8 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
 
         if (!$this->readonly)
         {
-            $form_string .= "<input type='submit' class='midgardmvc_helper_forms_form_save' value='Save' />\n";
+            $label = midgardmvc_core::get_instance()->i18n->get('save', 'midgardmvc_helper_forms');
+            $form_string .= "<input type='submit' class='midgardmvc_helper_forms_form_save' value='{$label}' />\n";
         }
 
         $form_string .= "</form>\n";
