@@ -10,29 +10,29 @@ class midgardmvc_helper_forms_field_url extends midgardmvc_helper_forms_field_te
 
     public function validate()
     {
-        parent::__validate();
+        parent::validate();
         // if value is NOT required and it is left empy, validate as true
         if (isset($this->required) && $this->required == false && mb_strlen($this->value) == 0)
         {
             return;
-        }            
+        }
         if (filter_var($this->value, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED) == false)
         {
             $message = $this->mvc->i18n->get('The field is not a valid url', "midgardmvc_helper_forms");
-            throw new midgardmvc_helper_forms_exception_validation($message); 
+            throw new midgardmvc_helper_forms_exception_validation($message);
         }
     }
 
     public function clean()
-    {    
-        parent::__clean();
+    {
+        parent::clean();
         //add http:// if missing
         if (substr($this->value, 0, 7) != 'http://')
         {
             $this->value = 'http://'.$this->value;
         }
     }
-        
+
 }
 
 ?>
