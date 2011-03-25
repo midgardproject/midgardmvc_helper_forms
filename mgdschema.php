@@ -8,11 +8,13 @@
 class midgardmvc_helper_forms_mgdschema
 {
     private static $i18n_prefix = '';
+    private static $i18n_tip_prefix = 'tip_';
     private static $reflectionproperties = array();
 
-    public static function create(midgard_object $object, $include_metadata = true, $i18n_prefix = '')
+    public static function create(midgard_object $object, $include_metadata = true, $i18n_prefix = '', $i18n_tip_prefix = '')
     {
         self::$i18n_prefix = $i18n_prefix;
+        self::$i18n_tip_prefix = $i18n_tip_prefix;
 
         $form_namespace = get_class($object);
         if ($object->guid)
@@ -39,11 +41,11 @@ class midgardmvc_helper_forms_mgdschema
             {
                 continue;
             }
-            self::property_to_form(get_class($object), $property, $value, $form, null, $mvc->i18n->get(self::$i18n_prefix . $property));
+            self::property_to_form(get_class($object), $property, $value, $form, null, $mvc->i18n->get(self::$i18n_prefix . $property), $mvc->i18n->get(self::$i18n_tip_prefix . $property));
         }
     }
 
-    public static function property_to_form($class, $property, $value, midgardmvc_helper_forms_group $form, $fieldname = null, $label = null)
+    public static function property_to_form($class, $property, $value, midgardmvc_helper_forms_group $form, $fieldname = null, $label = null, $tip = null)
     {
         if (is_null($label))
         {
@@ -93,6 +95,7 @@ class midgardmvc_helper_forms_mgdschema
                 $field->set_inline(true);
                 $widget = $field->set_widget('text');
                 $widget->set_label($label);
+                $widget->set_title($tip);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 // TODO: maxlength to 255
                 break;
@@ -109,6 +112,7 @@ class midgardmvc_helper_forms_mgdschema
                 }
                 $field->set_value($value);
                 $widget->set_label($label);
+                $widget->set_title($tip);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_INT:
@@ -116,6 +120,7 @@ class midgardmvc_helper_forms_mgdschema
                 $field->set_value($value);
                 $widget = $field->set_widget('number');
                 $widget->set_label($label);
+                $widget->set_title($tip);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_UINT:
@@ -124,6 +129,7 @@ class midgardmvc_helper_forms_mgdschema
                 // TODO: Set minimum value to 0
                 $widget = $field->set_widget('number');
                 $widget->set_label($label);
+                $widget->set_title($tip);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_BOOLEAN:
@@ -135,6 +141,7 @@ class midgardmvc_helper_forms_mgdschema
                 $field->set_value($value);
                 $widget = $field->set_widget('number');
                 $widget->set_label($label);
+                $widget->set_title($tip);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_TIMESTAMP:
@@ -142,6 +149,7 @@ class midgardmvc_helper_forms_mgdschema
                 $field->set_value($value);
                 $widget = $field->set_widget('datetime');
                 $widget->set_label($label);
+                $widget->set_title($tip);
                 $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
             case MGD_TYPE_GUID:
                 break;
