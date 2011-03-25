@@ -10,7 +10,8 @@ abstract class midgardmvc_helper_forms_widget
     protected $field;
     protected $label = '';
     protected $placeholder = '';
-        
+    protected $title = '';
+
     public function __construct(midgardmvc_helper_forms_field $field)
     {
         $this->field = $field;
@@ -22,10 +23,18 @@ abstract class midgardmvc_helper_forms_widget
     {
         $this->label = $label;
     }
-    
+
     public function set_placeholder($placeholder)
     {
         $this->placeholder = $placeholder;
+    }
+
+    /**
+     * Sets the title attribute of the widget
+     */
+    public function set_title($title)
+    {
+        $this->title = $title;
     }
 
     public function add_label($form_field)
@@ -34,14 +43,14 @@ abstract class midgardmvc_helper_forms_widget
         {
             return $form_field;
         }
-        
+
         return "<label>{$this->label}{$form_field}</label>";
     }
 
     public function get_attributes()
     {
         $attributes = array();
-        
+
         if ($this->field->required)
         {
             $attributes[] = 'required=\'required\'';
@@ -56,8 +65,14 @@ abstract class midgardmvc_helper_forms_widget
         {
             $attributes[] = "placeholder='" . str_replace("'", '’', $this->placeholder) . "'";
         }
-        
+
+        if ($this->title)
+        {
+            $attributes[] = "title='" . str_replace("'", '’', $this->title) . "'";
+        }
+
         return implode(' ', $attributes);
     }
+
 }
 ?>
