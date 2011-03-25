@@ -11,11 +11,13 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
     private $post_processed = false;
     private $action = '';
     private $method = 'post';
+    private $submit = '';
 
     public function __construct($form_namespace)
     {
         $this->mvc = midgardmvc_core::get_instance();
         parent::__construct($form_namespace);
+        $this->set_submit(null, $this->mvc->i18n->get('save', 'midgardmvc_helper_forms'));
     }
 
     public function __get($key)
@@ -25,12 +27,12 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
             && !$this->post_processed)
         {
             // TODO: Process??
-        }      
+        }
         if ($key == 'namespace')
         {
             return parent::__get('name');
         }
-        
+
         return parent::__get($key);
     }
 
@@ -65,7 +67,7 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
         }
         $mvc->sessioning->set('midgardmvc_helper_forms', "stored_{$this->namespace}", $stored);
     }
-    
+
     public function clean_store()
     {
         $mvc = midgardmvc_core::get_instance();
@@ -75,7 +77,21 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
         }
         $mvc->sessioning->remove('midgardmvc_helper_forms', "stored_{$this->namespace}");
     }
-    
+
+    /**
+     * Sets the submit button of the form
+     * using the class definition for CSS
+     * and the label for the value attirbute
+     */
+    public function set_submit($class = null, $label = '')
+    {
+        if (is_null($class))
+        {
+            $class = "midgardmvc_helper_forms_form_save";
+        }
+        $this->submit = "<input type='submit' class='{$class}' value='{$label}' />\n";
+    }
+
     public function __toString()
     {
         $form_string  = "<form method='{$this->method}' action='{$this->action}'>\n";
@@ -87,13 +103,13 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
                 $form_string .= $item;
                 continue;
             }
+
             $form_string .= $item->widget;
         }
 
         if (!$this->readonly)
         {
-            $label = midgardmvc_core::get_instance()->i18n->get('save', 'midgardmvc_helper_forms');
-            $form_string .= "<input type='submit' class='midgardmvc_helper_forms_form_save' value='{$label}' />\n";
+            $form_string .= $this->submit;
         }
 
         $form_string .= "</form>\n";
