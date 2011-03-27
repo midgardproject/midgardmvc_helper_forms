@@ -135,6 +135,10 @@ class midgardmvc_helper_forms_mgdschema
             case MGD_TYPE_BOOLEAN:
                 $field = $form->add_field($fieldname, 'boolean', $required);
                 $field->set_value($value);
+                $widget = $field->set_widget('checkbox');
+                $widget->set_label($label);
+                $widget->set_title($tip);
+                $widget->set_placeholder(self::$reflectionproperties[$class]->description($property));
                 break;
             case MGD_TYPE_FLOAT:
                 $field = $form->add_field($fieldname, 'float', $required);
