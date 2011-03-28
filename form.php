@@ -83,13 +83,19 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
      * using the class definition for CSS
      * and the label for the value attirbute
      */
-    public function set_submit($class = null, $label = '')
+    public function set_submit($class = null, $label = '', $disabled = null)
     {
         if (is_null($class))
         {
             $class = "midgardmvc_helper_forms_form_save";
         }
-        $this->submit = "<input type='submit' class='{$class}' value='{$label}' />\n";
+
+        if ($disabled)
+        {
+            $disabled = 'disabled="disabled"';
+        }
+
+        $this->submit = "<input type='submit' class='{$class}' value='{$label}' {$disabled}/>\n";
     }
 
     public function __toString()
