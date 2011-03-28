@@ -23,7 +23,7 @@ class midgardmvc_helper_forms_widget_radiobuttons extends midgardmvc_helper_form
                 throw new Exception("Invalid options array");
             }
         }
-    
+
     }
 
     public function add_option($description, $value)
@@ -35,8 +35,8 @@ class midgardmvc_helper_forms_widget_radiobuttons extends midgardmvc_helper_form
     }
 
     public function __toString()
-    {   
-        $output = '<ul>';
+    {
+        $output = '<ul class="' . $this->field->get_name() . '">';
         foreach($this->options as $o)
         {
             $output .= "<li><input type='radio' name='{$this->field->get_name()}' value='".$o['value']."' {$this->get_attributes()}";
