@@ -16,7 +16,7 @@ class midgardmvc_helper_forms_widget_checkbox extends midgardmvc_helper_forms_wi
     }
 
     public function __toString()
-    {   
+    {
         $output = "<span><input type='checkbox' name='{$this->field->get_name()}' id='{$this->field->get_name()}' value='1' {$this->get_attributes()}";
         if ($this->field->get_value() == true)
         {
@@ -28,6 +28,8 @@ class midgardmvc_helper_forms_widget_checkbox extends midgardmvc_helper_forms_wi
         {
             $output .= "<label for='{$this->field->get_name()}'>{$this->label}</label>";
         }
+
+        $output .= "</span>";
 
         return $output;
     }
