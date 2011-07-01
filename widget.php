@@ -20,6 +20,11 @@ abstract class midgardmvc_helper_forms_widget
 
     public abstract function __toString();
 
+    public function get_label()
+    {
+        return $this->label;
+    }
+
     public function set_label($label)
     {
         $this->label = $label;
