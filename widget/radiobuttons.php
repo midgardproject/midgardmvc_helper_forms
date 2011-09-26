@@ -36,18 +36,45 @@ class midgardmvc_helper_forms_widget_radiobuttons extends midgardmvc_helper_form
 
     public function __toString()
     {
-        $output = '<ul class="' . $this->field->get_name() . '">';
+        if ($this->label)
+        {
+            $output = "\n<label class=" . $this->field->get_name() . ">";
+            $output .= $this->label;
+        }
+
+        $output .= "\n" . '<ul class="radio">' . "\n";
+        $checked = false;
+
         foreach($this->options as $o)
         {
-            $output .= "<li><input type='radio' name='{$this->field->get_name()}' value='".$o['value']."' {$this->get_attributes()}";
-            if ($o['value'] == $this->field->get_value())
+            $output .= "<li>\n";
+            $output .= '<input type="radio" name="' . $this->field->get_name() . '" value="' . $o['value'] . '"' . $this->get_attributes();
+
+            if (   $this->field->get_value() == ''
+                && ! $checked)
             {
-                $output .= " checked='checked'";
+                $output .= ' checked="checked"';
+                $checked = true;
             }
-            $output .= " />";
-            $output .= " <span>{$o['description']}</span></li>";
+            else
+            {
+                if ($o['value'] == $this->field->get_value())
+                {
+                    $output .= ' checked="checked"';
+                    $checked = true;
+                }
+            }
+            $output .= ">\n";
+            $output .= "<span>" . $o['description'] . "</span>\n";
+            $output .= "</li>\n";
         }
-        $output .= '</ul>';
+        $output .= "\n</ul>\n";
+
+        if ($this->label)
+        {
+            $output .= "\n</label>\n";
+        }
+
         return $output;
     }
 
