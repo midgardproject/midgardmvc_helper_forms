@@ -12,6 +12,7 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
     private $action = '';
     private $method = 'post';
     private $submit = '';
+    private $cancel = null;
 
     public function __construct($form_namespace)
     {
@@ -79,6 +80,21 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
     }
 
     /**
+     * Sets the cancel button of the form
+     * using the class definition for CSS
+     * and the label for the value attirbute
+     */
+    public function set_cancel($class = null, $label = '', $url = '#')
+    {
+        if (is_null($class))
+        {
+            $class = "midgardmvc_helper_forms_form_cancel";
+        }
+
+        $this->cancel = "<a class='{$class}' href='{$url}'>${label}</a>";
+    }
+
+    /**
      * Sets the submit button of the form
      * using the class definition for CSS
      * and the label for the value attirbute
@@ -115,7 +131,13 @@ class midgardmvc_helper_forms_form extends midgardmvc_helper_forms_group
 
         if (!$this->readonly)
         {
+            $form_string .= "<div class='midgardmvc_helper_forms_actions'>";
+            if ($this->cancel)
+            {
+                $form_string .= $this->cancel;
+            }
             $form_string .= $this->submit;
+            $form_string .= "</div>";
         }
 
         $form_string .= "</form>\n";
