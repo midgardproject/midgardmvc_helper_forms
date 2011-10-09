@@ -47,10 +47,18 @@ class midgardmvc_helper_forms_widget_radiobuttons extends midgardmvc_helper_form
 
         foreach($this->options as $o)
         {
+            $default = false;
+            if (substr($o['description'], strlen($o['description']) - 1) == '*')
+            {
+                $default = true;
+                $o['description'] = substr($o['description'], 0, strlen($o['description']) - 1);
+            }
+
             $output .= "<li>\n";
             $output .= '<input type="radio" name="' . $this->field->get_name() . '" value="' . $o['value'] . '"' . $this->get_attributes();
 
             if (   $this->field->get_value() == ''
+                && $default
                 && ! $checked)
             {
                 $output .= ' checked="checked"';
