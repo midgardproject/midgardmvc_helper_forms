@@ -5,3 +5,6 @@ msgstr ""
 
 msgid "save"
 msgstr "Save"
+
+msgid "cancel"
+msgstr "Cancel"
