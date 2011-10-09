@@ -28,11 +28,12 @@ class midgardmvc_helper_forms_field_datetime extends midgardmvc_helper_forms_fie
             }
         }
 
-        if ($this->value instanceof DateTime)
+        if ($value instanceof DateTime)
         {
-            if ($this->value instanceof midgard_datetime)
+            if ($value instanceof midgard_datetime)
             {
-                $this->value->setTimestamp($value->getTimestamp());
+                $value->setTimestamp($value->getTimestamp());
+                $this->value = $value;
                 return;
             }
             $new_value = new midgard_datetime();
@@ -47,7 +48,7 @@ class midgardmvc_helper_forms_field_datetime extends midgardmvc_helper_forms_fie
     {
         if (!$this->value instanceof DateTime)
         {
-            if (   isset($this->required) 
+            if (   isset($this->required)
                 && $this->required == false)
             {
                 return;
