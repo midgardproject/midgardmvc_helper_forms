@@ -12,6 +12,7 @@ abstract class midgardmvc_helper_forms_widget
     protected $placeholder = '';
     protected $title = '';
     protected $css = '';
+    protected $id = '';
 
     public function __construct(midgardmvc_helper_forms_field $field)
     {
@@ -51,6 +52,14 @@ abstract class midgardmvc_helper_forms_widget
         $this->css = $css;
     }
 
+    /**
+     * Sets the id attribute of the widget
+     */
+    public function set_id($id)
+    {
+        $this->id = $id;
+    }
+
     public function add_label($form_field)
     {
         if (!$this->label)
@@ -88,6 +97,11 @@ abstract class midgardmvc_helper_forms_widget
         if ($this->css)
         {
             $attributes[] = "class='" . str_replace("'", '’', $this->css) . "'";
+        }
+
+        if ($this->id)
+        {
+            $attributes[] = "id='" . str_replace("'", '’', $this->id) . "'";
         }
 
         return implode(' ', $attributes);
