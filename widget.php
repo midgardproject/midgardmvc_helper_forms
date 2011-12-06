@@ -67,7 +67,7 @@ abstract class midgardmvc_helper_forms_widget
             return $form_field;
         }
 
-        return "<label>{$this->label}{$form_field}</label>";
+        return "<label>{$this->label}</label> {$form_field}";
     }
 
     public function get_attributes()
