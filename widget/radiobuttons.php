@@ -40,9 +40,10 @@ class midgardmvc_helper_forms_widget_radiobuttons extends midgardmvc_helper_form
         {
             $output = "\n<label class=" . $this->field->get_name() . ">";
             $output .= $this->label;
+            $output .= "</label>\n";
         }
 
-        $output .= "\n" . '<ul class="radio">' . "\n";
+        $output .= '<ul class="radio">' . "\n";
         $checked = false;
 
         foreach($this->options as $o)
@@ -54,8 +55,8 @@ class midgardmvc_helper_forms_widget_radiobuttons extends midgardmvc_helper_form
                 $o['description'] = substr($o['description'], 0, strlen($o['description']) - 1);
             }
 
-            $output .= "<li>\n";
-            $output .= '<input type="radio" name="' . $this->field->get_name() . '" value="' . $o['value'] . '"' . $this->get_attributes();
+            $output .= "  <li>\n";
+            $output .= '    <input type="radio" name="' . $this->field->get_name() . '" value="' . $o['value'] . '"' . $this->get_attributes();
 
             if (   $this->field->get_value() == ''
                 && $default
@@ -73,15 +74,10 @@ class midgardmvc_helper_forms_widget_radiobuttons extends midgardmvc_helper_form
                 }
             }
             $output .= ">\n";
-            $output .= "<span>" . $o['description'] . "</span>\n";
-            $output .= "</li>\n";
+            $output .= "    <span>" . $o['description'] . "</span>\n";
+            $output .= "  </li>\n";
         }
-        $output .= "\n</ul>\n";
-
-        if ($this->label)
-        {
-            $output .= "\n</label>\n";
-        }
+        $output .= "</ul>\n";
 
         return $output;
     }
