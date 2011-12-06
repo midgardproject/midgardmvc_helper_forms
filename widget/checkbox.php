@@ -17,19 +17,21 @@ class midgardmvc_helper_forms_widget_checkbox extends midgardmvc_helper_forms_wi
 
     public function __toString()
     {
-        $output = "<span><input type='checkbox' name='{$this->field->get_name()}' id='{$this->field->get_name()}' value='1' {$this->get_attributes()}";
+        $output = "<span>\n";
+        $output .= "  <input type='checkbox' name='{$this->field->get_name()}' id='{$this->field->get_name()}' value='1' {$this->get_attributes()}";
+
         if ($this->field->get_value() == true)
         {
             $output .= " checked='checked'";
         }
-        $output .= " />";
+        $output .= " />\n";
 
         if ($this->label)
         {
-            $output .= "<label for='{$this->field->get_name()}'>{$this->label}</label>";
+            $output .= "  <label for='{$this->field->get_name()}'>{$this->label}</label>";
         }
 
-        $output .= "</span>";
+        $output .= "\n</span>\n";
 
         return $output;
     }
