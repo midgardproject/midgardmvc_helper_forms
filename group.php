@@ -11,12 +11,12 @@ class midgardmvc_helper_forms_group
     protected $name = '';
     protected $label = '';
     protected $readonly = false;
-    
+
     public function __construct($name)
     {
         $this->name = $name;
     }
-    
+
     public function __get($key)
     {
         switch ($key)
@@ -31,7 +31,7 @@ class midgardmvc_helper_forms_group
         {
             throw new InvalidArgumentException("{$key} not set for group {$this->name}");
         }
-        
+
         if (isset($this->items[$key]))
         {
             // Return individual item
@@ -40,15 +40,15 @@ class midgardmvc_helper_forms_group
     }
 
     public function __set($key, $value)
-    {    
+    {
         if (isset($this->items[$key]))
         {
             $this->items[$key] = $value;
-        }      
+        }
     }
 
     public function __unset($key)
-    {    
+    {
         if (isset($this->items[$key]))
         {
             unset($this->items[$key]);
@@ -80,12 +80,12 @@ class midgardmvc_helper_forms_group
     }
 
     public function add_field($name, $field, $required = false, array $actions = array())
-    {        
+    {
         if (strpos($field, '_') === false)
         {
             // Built-in type called using the shorthand notation
             $field = "midgardmvc_helper_forms_field_{$field}";
-        }  
+        }
 
         $this->items[$name] = new $field($name, $required, $actions);
 
@@ -99,8 +99,8 @@ class midgardmvc_helper_forms_group
                 $this->items[$name]->set_value($stored['fields'][$name]['value']);
             }
         }
-        
-        return $this->items[$name];        
+
+        return $this->items[$name];
     }
 
     public function set_readonly($readonly = true)
@@ -140,17 +140,17 @@ class midgardmvc_helper_forms_group
             elseif(isset($_FILES[$name]))
             {
                 $value = $_FILES[$name];
-            }            
-            //If item is a field with the proper name, do magic        
+            }
+            //If item is a field with the proper name, do magic
             //if (isset($value) && $value != null)
             //{
-            
+
                 //Set value to the field
                 $item->set_value($value);
                 //Read actions
                 $actions = $item->get_actions();
                 //If there are manually defined actions in the array, run them
-                if (   is_array($actions) 
+                if (   is_array($actions)
                     && count($actions) > 0)
                 {
                     foreach($actions as $action)
@@ -172,20 +172,20 @@ class midgardmvc_helper_forms_group
                     //Default: First clean, then validate
                     $item->clean();
                     $item->validate();
-                }           
-            //}    
+                }
+            //}
         }
     }
-    
+
     public function __toString()
     {
         $form_string  = "<fieldset>\n";
-        
+
         if ($this->label)
         {
             $form_string .= "<legend>{$this->label}</legend>\n";
         }
-        
+
         foreach ($this->items as $item)
         {
             if ($item instanceof midgardmvc_helper_forms_group)
