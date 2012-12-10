@@ -1,0 +1,25 @@
+{
+  "name": "midgard/midgardmvc-helper-forms",
+  "type": "library",
+  "description": "Form utilities for Midgard MVC",
+  "keywords": ["form"],
+  "license": "LGPL",
+  "authors": [
+    {
+      "name": "Henri Bergius",
+      "email": "henri.bergius@iki.fi",
+      "homepage": "http://bergie.iki.fi/"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.2.0"
+  },
+  "require": {
+    "ezyang/htmlpurifier": "dev-master",
+    "midgard/midgardmvc-core": "dev-master"
+  },
+  "autoload": {
+    "classmap": ["."]
+  }
+}
