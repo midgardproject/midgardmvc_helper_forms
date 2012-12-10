@@ -47,14 +47,12 @@ class midgardmvc_helper_forms_field_html extends midgardmvc_helper_forms_field
 
     public function purify($content)
     {
-        require_once('HTMLPurifier.auto.php');
-
         $cache_dir = $this->get_cache_dir();
         if (!file_exists($cache_dir))
         {
             mkdir($cache_dir);
         }
-
+        HTMLPurifier_Bootstrap::registerAutoload();
         $config = HTMLPurifier_Config::createDefault();
         $config->set('Cache.SerializerPath', $cache_dir);
         $config->set('Core.Encoding', 'UTF-8');
