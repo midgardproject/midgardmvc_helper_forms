@@ -77,6 +77,11 @@ abstract class midgardmvc_helper_forms_field
         $this->readonly = (bool) $readonly;
     }
 
+    public function set_required($required = true)
+    {
+        $this->required = (bool) $required;
+    }
+
     public function set_value($value)
     {
         $this->value = $value;
